@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов (простой)»
 
 * Студент: [Мария Власова](https://up.htmlacademy.ru/react/11/user/871783).
-* Наставник: [Алексей Козлов](https://htmlacademy.ru/profile/id1479859).
+* Наставник: [Алексей Козлов](https://htmlacademy.ru/profile/id1479859). 
 
 ---
 

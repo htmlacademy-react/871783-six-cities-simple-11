@@ -1,0 +1,35 @@
+.status-error__name {
+  margin-top: 0;
+  margin-bottom: 8px;
+  padding: 0 28px;
+  font-size: 38px;
+  line-height: 1.21053;
+  font-weight: 700;
+  font-style: oblique;
+  text-align: center;
+}
+
+.status-error__inside-title {
+  margin-top: 0;
+  margin-bottom: 24px;
+  font-size: 24px;
+  line-height: 1.1667;
+  font-weight: 700;
+  font-style: oblique;
+  text-align: center;
+  color: #000;
+}
+
+.status-error__mark {
+  margin-bottom: 8px;
+  padding: 7px 11px 7px 8px;
+  font-size: 16px;
+  line-height: 1.1875;
+  font-weight: 700;
+  font-style: oblique;
+  color: #fff;
+  background-color: #4481c3;
+  -webkit-transform: skew(-10deg);
+  transform: skew(-10deg);
+  border-radius: 2px;
+}

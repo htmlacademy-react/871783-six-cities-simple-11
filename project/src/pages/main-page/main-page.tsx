@@ -1,5 +1,4 @@
-import Header from '../../components/header/header';
-import Card from '../../components/card/card';
+import {Header, Card} from '../../components';
 
 type MainPageProps = {
   cardsCount: number;

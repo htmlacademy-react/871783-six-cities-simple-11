@@ -1,5 +1,5 @@
-import Header from '../../components/header/header';
-import Card from '../../components/card/card';
+import {Header, Card} from '../../components';
+import {Helmet} from 'react-helmet-async';
 
 type MainPageProps = {
   cardsCount: number;
@@ -8,7 +8,9 @@ type MainPageProps = {
 function MainPage(props: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
-
+      <Helmet>
+        <title>6 городов. Главная страница</title>
+      </Helmet>
       <Header />
 
       <main className="page__main page__main--index">

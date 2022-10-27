@@ -2,8 +2,9 @@ import { Header, Card } from '../../components';
 import { useParams } from 'react-router-dom';
 
 function OfferPage(): JSX.Element {
-  const params = useParams();
-  console.log(params)
+   const {id} = useParams();
+  // eslint-disable-next-line no-console
+  console.log(id);
   return (
     <div className="page">
 

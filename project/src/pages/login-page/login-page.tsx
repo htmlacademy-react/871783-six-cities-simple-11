@@ -1,9 +1,12 @@
 import { Logo } from '../../components';
+import {Helmet} from 'react-helmet-async';
 
 function LoginPage(): JSX.Element {
   return (
     <div className="page page--gray page--login">
-
+      <Helmet>
+        <title>6 городов. Страница авторизации</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

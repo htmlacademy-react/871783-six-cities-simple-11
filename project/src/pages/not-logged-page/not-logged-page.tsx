@@ -1,9 +1,12 @@
 import { Header } from '../../components';
+import { Helmet } from 'react-helmet-async';
 
 function NotLoggedPage(): JSX.Element {
   return (
     <div className="page">
-
+      <Helmet>
+        <title>6 городов. Необходимо авторизоваться</title>
+      </Helmet>
       <Header />
 
       <main className="page__main page__main--property">

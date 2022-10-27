@@ -1,1 +1,1 @@
-export {AppRoute, AuthorizationStatus} from './router';
+export { AppRoute } from './router';

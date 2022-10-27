@@ -2,7 +2,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { LoginPage, MainPage, OfferPage, NotFoundPage } from '../../pages';
 import { PrivateRoute } from '../../components';
-import { AppRoute, AuthorizationStatus } from '../../router';
+import { AppRoute } from '../../router';
+import { AuthorizationStatus } from '../../const';
 
 type AppScreenProps = {
   cardsCount: number;

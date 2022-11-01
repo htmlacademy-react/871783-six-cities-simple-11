@@ -4,9 +4,10 @@ import { LoginPage, MainPage, OfferPage, NotFoundPage } from '../../pages';
 import { PrivateRoute } from '../../components';
 import { AppRoute } from '../../router';
 import { AuthorizationStatus } from '../../const';
+import { Offers } from '../../types/offer';
 
 type AppScreenProps = {
-  cardsCount: number;
+  offers: Offers;
 }
 
 function App(props: AppScreenProps): JSX.Element {
@@ -16,7 +17,7 @@ function App(props: AppScreenProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage cardsCount={props.cardsCount}/>}
+            element={<MainPage offers = { props.offers } />}
           />
           <Route
             path={AppRoute.Login}
@@ -29,8 +30,8 @@ function App(props: AppScreenProps): JSX.Element {
             }
           />
           <Route
-            path={AppRoute.Offer}
-            element={<OfferPage />}
+            path={`${AppRoute.Offer}/:id`}
+            element={<OfferPage offers = { props.offers } />}
           />
           <Route
             path="*"

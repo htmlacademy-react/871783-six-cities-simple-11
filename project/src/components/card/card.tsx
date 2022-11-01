@@ -44,7 +44,7 @@ function Card(props: CardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Offer}>{ props.offer.title }</Link>
+          <Link to={path}>{ props.offer.title }</Link>
         </h2>
         <p className="place-card__type">{ props.offer.type }</p>
       </div>

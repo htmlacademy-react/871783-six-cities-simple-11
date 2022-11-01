@@ -32,7 +32,7 @@ export const offers: Offers = [
     'price': 80,
     'rating': 4,
     'title': 'Wood and stone place',
-    'type': 'apartment',
+    'type': 'home',
     'badrooms': 2,
     'maxAdults': 4,
     'insideItems': [

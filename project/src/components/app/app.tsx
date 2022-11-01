@@ -5,9 +5,11 @@ import { PrivateRoute } from '../../components';
 import { AppRoute } from '../../router';
 import { AuthorizationStatus } from '../../const';
 import { Offers } from '../../types/offer';
+import { Reviews} from '../../types/review';
 
 type AppScreenProps = {
   offers: Offers;
+  reviews: Reviews;
 }
 
 function App(props: AppScreenProps): JSX.Element {
@@ -31,10 +33,10 @@ function App(props: AppScreenProps): JSX.Element {
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
-            element={<OfferPage offers = { props.offers } />}
+            element={<OfferPage offers = { props.offers } reviews = { props.reviews } />}
           />
           <Route
-            path="*"
+            path='*'
             element={<NotFoundPage />}
           />
         </Routes>

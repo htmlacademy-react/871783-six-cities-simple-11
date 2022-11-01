@@ -1,8 +1,10 @@
 export type Review = {
   id: number;
   user: {
+    id: number;
     avatar: string;
     name: string;
+    isPro: boolean;
   };
   rating: number;
   comment: string;

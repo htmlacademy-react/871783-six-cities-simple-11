@@ -1,8 +1,11 @@
-import {Header, Card} from '../../components';
-import {Helmet} from 'react-helmet-async';
+import { Header, CardList } from '../../components';
+import { Offers } from '../../types/offer';
+import { Helmet} from 'react-helmet-async';
+import { AppRoute } from '../../router';
+import { Link } from 'react-router-dom';
 
 type MainPageProps = {
-  cardsCount: number;
+  offers: Offers;
 }
 
 function MainPage(props: MainPageProps): JSX.Element {
@@ -12,41 +15,40 @@ function MainPage(props: MainPageProps): JSX.Element {
         <title>6 городов. Главная страница</title>
       </Helmet>
       <Header />
-
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
+                <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
                   <span>Paris</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
+                <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
                   <span>Cologne</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
+                <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
                   <span>Brussels</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
+                <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
                   <span>Amsterdam</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
+                <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
                   <span>Hamburg</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
+                <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
                   <span>Dusseldorf</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </section>
@@ -55,7 +57,7 @@ function MainPage(props: MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{ props.offers.length } places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -72,7 +74,7 @@ function MainPage(props: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {Array.from({length: props.cardsCount}).map((card, index) => <Card key="{index}"/>)}
+                <CardList offers={ props.offers } />
               </div>
             </section>
             <div className="cities__right-section">

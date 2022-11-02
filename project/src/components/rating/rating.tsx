@@ -4,8 +4,8 @@ type RatingProps = {
   rating: number;
 }
 
-function Rating(props: RatingProps):JSX.Element {
-  const ratingWidthStar = getRatingWidth(props.rating);
+function Rating({rating}: RatingProps):JSX.Element {
+  const ratingWidthStar = getRatingWidth(rating);
 
   return (
     <span style={{ width: ratingWidthStar }} />

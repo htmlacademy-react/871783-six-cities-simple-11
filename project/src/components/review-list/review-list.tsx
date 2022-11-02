@@ -5,10 +5,10 @@ type ReviewListProps = {
   reviews: Reviews;
 }
 
-function ReviewList(props: ReviewListProps): JSX.Element {
+function ReviewList({reviews}: ReviewListProps): JSX.Element {
   return (
     <ul className="reviews__list">
-      { props.reviews.map((review) => (
+      { reviews.map((review) => (
         <UserReview
           review={ review }
           key={ review.id }

@@ -9,7 +9,7 @@ export const reviews: Reviews = [
       'name': 'Max',
       'isPro': true,
     },
-    'rating': 4,
+    'rating': 5,
     'comment': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
     'date': 'April 2019'
   },
@@ -18,15 +18,15 @@ export const reviews: Reviews = [
     'user': {
       'id': 22,
       'avatar': 'img/avatar-max.jpg',
-      'name': 'Max',
+      'name': 'Bob',
       'isPro': false,
     },
-    'rating': 4,
+    'rating': 3.5,
     'comment': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
     'date': 'April 2019'
   },
   {
-    'id': 1,
+    'id': 3,
     'user': {
       'id': 33,
       'avatar': 'img/avatar-angelina.jpg',

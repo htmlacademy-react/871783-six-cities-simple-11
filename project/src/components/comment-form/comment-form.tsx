@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent, Fragment  } from 'react';
+import React, { useState, ChangeEvent, FormEvent, Fragment } from 'react';
 import { ratings } from '../../const';
 
 function CommentForm(): JSX.Element {
@@ -30,8 +30,7 @@ function CommentForm(): JSX.Element {
               </svg>
             </label>
           </Fragment>
-        ))
-        }
+        ))}
       </div>
       <textarea
         className="reviews__textarea form__textarea"

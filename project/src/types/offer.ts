@@ -1,22 +1,27 @@
+export type Location = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+}
+
+export type City = {
+  name: string;
+  location: Location;
+}
+
 export type Offer = {
   id: number;
   isPremium: boolean;
-  image: string;
+  'previewImage': string;
+  images: string[];
   price: number;
   rating: number;
   title: string;
   type: string;
   badrooms: number;
   maxAdults: number;
-  'insideItems': string[];
-  city: {
-    name: string;
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-  };
+  insideItems: string[];
+  city: City;
 }
 
 export type Offers = Offer[];

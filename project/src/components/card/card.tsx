@@ -1,6 +1,7 @@
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import {AppRoute} from '../../router';
+import { Rating } from "../../components";
 
 type CardProps = {
   offer: Offer;
@@ -26,7 +27,7 @@ function Card(props: CardProps): JSX.Element {
       }
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={path}>
-          <img className="place-card__image" src={ props.offer.image } width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={ props.offer.previewImage } width="260" height="200" alt="Place image" />
         </Link>
       </div>
       <div className="place-card__info">
@@ -39,7 +40,7 @@ function Card(props: CardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }} />
+            <Rating rating={ props.offer.rating } />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

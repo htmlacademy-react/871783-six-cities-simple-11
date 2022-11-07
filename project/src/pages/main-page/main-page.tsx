@@ -1,11 +1,12 @@
-import { Header, CardList } from '../../components';
-import { Offers } from '../../types/offer';
+import { Header, CardList, Map } from '../../components';
+import { City, Offers} from '../../types/offer';
 import { Helmet} from 'react-helmet-async';
 import { AppRoute } from '../../router';
 import { Link } from 'react-router-dom';
 
 type MainPageProps = {
   offers: Offers;
+  city: City;
 }
 
 function MainPage(props: MainPageProps): JSX.Element {
@@ -36,7 +37,7 @@ function MainPage(props: MainPageProps): JSX.Element {
                 </Link>
               </li>
               <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
+                <Link className="locations__item-link tabs__item tabs__item--active" to={AppRoute.Main}>
                   <span>Amsterdam</span>
                 </Link>
               </li>
@@ -74,11 +75,16 @@ function MainPage(props: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CardList offers={ props.offers } />
+                <CardList
+                  offers={ props.offers }
+                />
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <Map
+                points={props.offers}
+                city={props.city}
+              />
             </div>
           </div>
         </div>

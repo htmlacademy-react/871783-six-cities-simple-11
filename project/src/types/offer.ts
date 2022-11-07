@@ -19,7 +19,7 @@ export type Host = {
 export type Offer = {
   id: number;
   isPremium: boolean;
-  'previewImage': string;
+  previewImage: string;
   images: string[];
   price: number;
   rating: number;

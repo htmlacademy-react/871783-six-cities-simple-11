@@ -4,10 +4,11 @@ import { LoginPage, MainPage, OfferPage, NotFoundPage } from '../../pages';
 import { PrivateRoute } from '../../components';
 import { AppRoute } from '../../router';
 import { AuthorizationStatus } from '../../const';
-import { Offers } from '../../types/offer';
+import { City, Offers } from '../../types/offer';
 import { Reviews} from '../../types/review';
 
 type AppScreenProps = {
+  city: City;
   offers: Offers;
   reviews: Reviews;
 }
@@ -19,7 +20,12 @@ function App(props: AppScreenProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage offers = { props.offers } />}
+            element={
+              <MainPage
+                offers={ props.offers }
+                city={ props.city }
+              />
+            }
           />
           <Route
             path={AppRoute.Login}
@@ -33,7 +39,12 @@ function App(props: AppScreenProps): JSX.Element {
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
-            element={<OfferPage offers = { props.offers } reviews = { props.reviews } />}
+            element={
+              <OfferPage
+                offers={ props.offers }
+                reviews={ props.reviews }
+              />
+            }
           />
           <Route
             path='*'

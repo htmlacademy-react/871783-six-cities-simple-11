@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Offers } from '../../types/offer';
 import { Reviews} from '../../types/review';
 import { reviews } from '../../mocks/reviews';
-import {NotFoundPage} from "../not-found-page";
+import {NotFoundPage} from '../not-found-page';
 
 type OfferPageProps = {
   offers: Offers;
@@ -12,7 +12,7 @@ type OfferPageProps = {
 
 function OfferPage(props: OfferPageProps): JSX.Element {
   const params = useParams();
-  const offer = props.offers.find((offer) => offer.id.toString() === params.id);
+  const offer = props.offers.find((offerItem) => offerItem.id.toString() === params.id);
 
   if (!offer) {
     return (<NotFoundPage />);

@@ -31,11 +31,11 @@ export const offers: Offers = [
         'zoom': 20,
       }
     },
-    host: {
-      id: 77,
-      avatar: 'img/avatar-max.jpg',
-      name: 'Max',
-      isPro: true,
+    'host': {
+      'id': 77,
+      'avatar': 'img/avatar-max.jpg',
+      'name': 'Max',
+      'isPro': true,
     },
   },
   {
@@ -68,11 +68,11 @@ export const offers: Offers = [
         'zoom': 6,
       }
     },
-    host: {
-      id: 66,
-      avatar: 'img/avatar-max.jpg',
-      name: 'Max',
-      isPro: true,
+    'host': {
+      'id': 66,
+      'avatar': 'img/avatar-max.jpg',
+      'name': 'Max',
+      'isPro': true,
     },
   },
   {
@@ -105,11 +105,11 @@ export const offers: Offers = [
         'zoom': 10,
       }
     },
-    host: {
-      id: 88,
-      avatar: 'img/avatar-max.jpg',
-      name: 'Matt',
-      isPro: false,
+    'host': {
+      'id': 88,
+      'avatar': 'img/avatar-max.jpg',
+      'name': 'Matt',
+      'isPro': false,
     },
   },
   {
@@ -142,11 +142,11 @@ export const offers: Offers = [
         'zoom': 6,
       }
     },
-    host: {
-      id: 99,
-      avatar: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      isPro: false,
+    'host': {
+      'id': 99,
+      'avatar': 'img/avatar-angelina.jpg',
+      'name': 'Angelina',
+      'isPro': false,
     },
   },
 ];

@@ -41,6 +41,7 @@ function App(props: AppScreenProps): JSX.Element {
             path={`${AppRoute.Offer}/:id`}
             element={
               <OfferPage
+                city={ props.city }
                 offers={ props.offers }
                 reviews={ props.reviews }
               />

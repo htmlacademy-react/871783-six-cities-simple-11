@@ -1,11 +1,12 @@
-import { Header, CommentForm, CardList, ReviewList, Rating } from '../../components';
+import { Header, CommentForm, CardList, ReviewList, Rating, Map } from '../../components';
 import { useParams } from 'react-router-dom';
-import { Offers } from '../../types/offer';
+import { City, Offers } from '../../types/offer';
 import { Reviews} from '../../types/review';
 import { reviews } from '../../mocks/reviews';
 import {NotFoundPage} from '../not-found-page';
 
 type OfferPageProps = {
+  city: City;
   offers: Offers;
   reviews: Reviews;
 }
@@ -62,7 +63,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
                   { offer.title }
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  3 Bedrooms
+                  { offer.badrooms } Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
                   Max { offer.maxAdults } adults
@@ -116,7 +117,12 @@ function OfferPage(props: OfferPageProps): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="property__map map" />
+          <section className="property__map map">
+            <Map
+              points={props.offers}
+              city={props.city}
+            />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">

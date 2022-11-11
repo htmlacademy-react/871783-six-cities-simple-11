@@ -1,19 +1,24 @@
 import { Header, CommentForm, CardList, ReviewList, Rating, Map } from '../../components';
 import { useParams } from 'react-router-dom';
-import { City, Offers } from '../../types/offer';
+import { City, Offer, Point } from '../../types/offer';
 import { Reviews} from '../../types/review';
 import { reviews } from '../../mocks/reviews';
-import {NotFoundPage} from '../not-found-page';
+import { NotFoundPage } from '../not-found-page';
+import { useState } from 'react';
 
 type OfferPageProps = {
   city: City;
-  offers: Offers;
+  offers: Offer[];
   reviews: Reviews;
 }
 
 function OfferPage(props: OfferPageProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState<Offer | null>(null);
   const params = useParams();
   const offer = props.offers.find((offerItem) => offerItem.id.toString() === params.id);
+  const points: Point[] = props.offers.map((offerItem) => ({
+    id: offerItem.id, ...offerItem.city.location
+  }));
 
   if (!offer) {
     return (<NotFoundPage />);
@@ -21,9 +26,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
 
   return (
     <div className="page">
-
       <Header />
-
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -77,7 +80,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
                   {
-                    offer.insideItems.map((insideItem) => (
+                    offer.insideItems?.map((insideItem) => (
                       <li className="property__inside-item" key={ insideItem }>
                         { insideItem }
                       </li>
@@ -109,18 +112,16 @@ function OfferPage(props: OfferPageProps): JSX.Element {
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{ props.reviews.length }</span></h2>
-
                 <ReviewList reviews={reviews} />
-
                 <CommentForm />
-
               </section>
             </div>
           </div>
           <section className="property__map map">
             <Map
-              points={props.offers}
-              city={props.city}
+              points={ points }
+              city={ props.city }
+              selectedPoint={ activeCard?.id }
             />
           </section>
         </section>
@@ -128,7 +129,11 @@ function OfferPage(props: OfferPageProps): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <CardList offers={ props.offers } />
+              <CardList
+                offers={ props.offers }
+                setActiveCard={ setActiveCard }
+                offerType={ 'nearby' }
+              />
             </div>
           </section>
         </div>

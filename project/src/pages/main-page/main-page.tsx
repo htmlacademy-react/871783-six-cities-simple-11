@@ -1,16 +1,23 @@
 import { Header, CardList, Map } from '../../components';
-import { City, Offers} from '../../types/offer';
+import { City, Offer, Point } from '../../types/offer';
+import { offers } from '../../mocks/offers';
 import { Helmet} from 'react-helmet-async';
 import { AppRoute } from '../../router';
 import { Link } from 'react-router-dom';
 import { cities } from '../../const';
+import { useState } from 'react';
 
 type MainPageProps = {
-  offers: Offers;
+  offers: Offer[];
   city: City;
 }
 
 function MainPage(props: MainPageProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState<Offer | null>(null);
+  const points: Point[] = offers.map((offer) => ({
+    id: offer.id, ...offer.city.location
+  }));
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -55,13 +62,16 @@ function MainPage(props: MainPageProps): JSX.Element {
               <div className="cities__places-list places__list tabs__content">
                 <CardList
                   offers={ props.offers }
+                  offerType={ 'cities' }
+                  setActiveCard={ setActiveCard }
                 />
               </div>
             </section>
             <div className="cities__right-section">
               <Map
-                points={props.offers}
-                city={props.city}
+                points={ points }
+                city={ props.city }
+                selectedPoint={ activeCard?.id }
               />
             </div>
           </div>

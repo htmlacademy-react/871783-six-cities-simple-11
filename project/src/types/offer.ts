@@ -28,9 +28,13 @@ export type Offer = {
   type: string;
   badrooms: number;
   maxAdults: number;
-  insideItems: string[];
+  insideItems?: string[] | null;
   city: City;
   host: Host;
+}
+
+export type Point = Omit<Location, 'zoom'> & {
+  id: number;
 }
 
 export type Offers = Offer[];

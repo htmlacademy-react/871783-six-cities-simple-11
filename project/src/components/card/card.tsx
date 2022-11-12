@@ -1,11 +1,12 @@
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import {AppRoute} from '../../router';
+import { Rating } from '../../components';
 
 type CardProps = {
   offer: Offer;
-  onMouseOver?: () => void;
-  onMouseLeave?: () => void;
+  offerType: 'nearby' | 'cities';
+  setActiveCard: (offer: Offer | null) => void;
 }
 
 function Card(props: CardProps): JSX.Element {
@@ -13,9 +14,10 @@ function Card(props: CardProps): JSX.Element {
 
   return (
     <article
-      className="cities__card place-card"
-      onMouseOver={ props.onMouseOver }
-      onMouseLeave={ props.onMouseLeave }
+      className={`${ props.offerType === 'cities' ? 'cities' : 'near-places'}__card place-card`}
+      onMouseOver={() => props.setActiveCard(props.offer) }
+      onMouseLeave={() => props.setActiveCard(null)}
+      key={props.offer.id}
     >
       {
         props.offer.isPremium ?
@@ -24,9 +26,9 @@ function Card(props: CardProps): JSX.Element {
           </div> :
           ''
       }
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${ props.offerType === 'cities' ? 'cities' : 'near-places'}__image-wrapper place-card__image-wrapper`}>
         <Link to={path}>
-          <img className="place-card__image" src={ props.offer.image } width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={ props.offer.previewImage } width="260" height="200" alt="Place image" />
         </Link>
       </div>
       <div className="place-card__info">
@@ -39,7 +41,7 @@ function Card(props: CardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }} />
+            <Rating rating={ props.offer.rating } />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

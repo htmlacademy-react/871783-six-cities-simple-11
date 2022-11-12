@@ -1,29 +1,25 @@
-import { useState } from 'react';
 import { Card } from '../../components';
-import { Offers } from '../../types/offer';
+import { Offer } from '../../types/offer';
 
 type CardListProps = {
-  offers: Offers;
+  offers: Offer[];
+  offerType: 'nearby' | 'cities';
+  setActiveCard: (offer: Offer | null) => void;
 }
 
 function CardList(props: CardListProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState({});
 
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <>
       { props.offers.map((offer) => (
         <Card
           offer={ offer }
+          offerType={ props.offerType }
           key={ offer.id }
-          onMouseOver={() => {
-            if (activeCard !== offer.id) {
-              setActiveCard(offer.id);
-            }
-          }}
-          onMouseLeave={() => setActiveCard(0)}
+          setActiveCard={props.setActiveCard}
         />
       ))}
-    </div>
+    </>
   );
 }
 

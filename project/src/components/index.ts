@@ -7,3 +7,4 @@ export { CommentForm } from './comment-form';
 export { Rating } from './rating';
 export { UserReview } from './user-review';
 export { ReviewList } from './review-list';
+export { Map } from './map';

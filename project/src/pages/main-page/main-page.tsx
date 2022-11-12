@@ -1,14 +1,23 @@
-import { Header, CardList } from '../../components';
-import { Offers } from '../../types/offer';
+import { Header, CardList, Map } from '../../components';
+import { City, Offer, Point } from '../../types/offer';
+import { offers } from '../../mocks/offers';
 import { Helmet} from 'react-helmet-async';
 import { AppRoute } from '../../router';
 import { Link } from 'react-router-dom';
+import { cities } from '../../const';
+import { useState } from 'react';
 
 type MainPageProps = {
-  offers: Offers;
+  offers: Offer[];
+  city: City;
 }
 
 function MainPage(props: MainPageProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState<Offer | null>(null);
+  const points: Point[] = offers.map((offer) => ({
+    id: offer.id, ...offer.city.location
+  }));
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -20,36 +29,13 @@ function MainPage(props: MainPageProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                  <span>Paris</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                  <span>Cologne</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                  <span>Brussels</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                  <span>Amsterdam</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                  <span>Hamburg</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                  <span>Dusseldorf</span>
-                </Link>
-              </li>
+              { cities.map((city) => (
+                <li className="locations__item" key={ city }>
+                  <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
+                    <span>{ city }</span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </section>
         </div>
@@ -74,11 +60,19 @@ function MainPage(props: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CardList offers={ props.offers } />
+                <CardList
+                  offers={ props.offers }
+                  offerType={ 'cities' }
+                  setActiveCard={ setActiveCard }
+                />
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <Map
+                points={ points }
+                city={ props.city }
+                selectedPoint={ activeCard?.id }
+              />
             </div>
           </div>
         </div>

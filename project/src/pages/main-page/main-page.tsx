@@ -1,67 +1,67 @@
-import { Header, CardList, Map } from '../../components';
+import {Header, CardList, Map, CityList, Sorting } from '../../components';
 import { City, Offer, Point } from '../../types/offer';
-import { offers } from '../../mocks/offers';
 import { Helmet} from 'react-helmet-async';
-import { AppRoute } from '../../router';
-import { Link } from 'react-router-dom';
-import { cities } from '../../const';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {changeCityAction, getOffersAction } from '../../store/action';
+import { offers } from '../../mocks/offers';
+import { cardsSorted } from '../../utils';
+// import { SortingType } from '../../const';
 
 type MainPageProps = {
-  offers: Offer[];
   city: City;
 }
 
 function MainPage(props: MainPageProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
-  const points: Point[] = offers.map((offer) => ({
+  const selectedCity = useAppSelector((state) => state.city);
+  const cityOffers = useAppSelector((state) => state.offers);
+  const sortingType = useAppSelector((state) => state.sortingType);
+  const points: Point[] = cityOffers.map((offer) => ({
     id: offer.id, ...offer.city.location
   }));
+  const handleCitySelect = (city: string) => dispatch(changeCityAction(city));
+
+  // const filteredOffers = offers.filter((offer) => offer.city.name === selectedCity)
+  //
+  // useEffect(() => {
+  //   //Добавить сортировку
+  //   dispatch(getOffersAction(filteredOffers));
+  // }, [selectedCity]);
+
+  useEffect(() => {
+        const filteredOffers = offers.filter((offer) => offer.city.name === selectedCity);
+    // const sortedOffers: Offer[] = filteredOffers.length > 0 ? cardsSorted(filteredOffers, sortingType) : [];
+    dispatch(getOffersAction(cardsSorted(filteredOffers, sortingType)));
+  }, [selectedCity, sortingType]);
 
   return (
     <div className="page page--gray page--main">
       <Helmet>
-        <title>6 городов. Главная страница</title>
+        <title>{`6 городов | ${selectedCity}`}</title>
       </Helmet>
       <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              { cities.map((city) => (
-                <li className="locations__item" key={ city }>
-                  <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                    <span>{ city }</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <CityList
+              selectedCity={ selectedCity }
+              onCityClick={ handleCitySelect }
+            />
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{ props.offers.length } places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select" />
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
+              <b className="places__found">{ cityOffers.length } places to stay in { selectedCity }</b>
+              <Sorting />
+              {/*<Sorting offers={ sortedOffers } />*/}
               <div className="cities__places-list places__list tabs__content">
                 <CardList
-                  offers={ props.offers }
+                  offers={ cityOffers }
                   offerType={ 'cities' }
                   setActiveCard={ setActiveCard }
                 />

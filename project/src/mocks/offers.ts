@@ -18,7 +18,7 @@ export const offers: Offers = [
     'type': 'apartment',
     'badrooms': 3,
     'maxAdults': 4,
-    'insideItems': [
+    'goods': [
       'Coffee machine',
       'Dishwasher',
       'Wi-Fi',
@@ -33,7 +33,7 @@ export const offers: Offers = [
     },
     'host': {
       'id': 77,
-      'avatar': 'img/avatar-max.jpg',
+      'avatarUrl': 'img/avatar-max.jpg',
       'name': 'Max',
       'isPro': true,
     },
@@ -55,7 +55,7 @@ export const offers: Offers = [
     'type': 'home',
     'badrooms': 2,
     'maxAdults': 4,
-    'insideItems': [
+    'goods': [
       'Coffee machine',
       'Dishwasher',
       'Wi-Fi',
@@ -70,7 +70,7 @@ export const offers: Offers = [
     },
     'host': {
       'id': 66,
-      'avatar': 'img/avatar-max.jpg',
+      'avatarUrl': 'img/avatar-max.jpg',
       'name': 'Max',
       'isPro': true,
     },
@@ -92,7 +92,7 @@ export const offers: Offers = [
     'type': 'apartment',
     'badrooms': 3,
     'maxAdults': 3,
-    'insideItems': [
+    'goods': [
       'Coffee machine',
       'Dishwasher',
       'Wi-Fi',
@@ -107,7 +107,7 @@ export const offers: Offers = [
     },
     'host': {
       'id': 88,
-      'avatar': 'img/avatar-max.jpg',
+      'avatarUrl': 'img/avatar-max.jpg',
       'name': 'Matt',
       'isPro': false,
     },
@@ -129,7 +129,7 @@ export const offers: Offers = [
     'type': 'apartment',
     'badrooms': 2,
     'maxAdults': 4,
-    'insideItems': [
+    'goods': [
       'Coffee machine',
       'Dishwasher',
       'Wi-Fi',
@@ -144,7 +144,7 @@ export const offers: Offers = [
     },
     'host': {
       'id': 99,
-      'avatar': 'img/avatar-angelina.jpg',
+      'avatarUrl': 'img/avatar-angelina.jpg',
       'name': 'Angelina',
       'isPro': false,
     },

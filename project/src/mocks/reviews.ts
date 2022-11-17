@@ -5,7 +5,7 @@ export const reviews: Reviews = [
     'id': 1,
     'user': {
       'id': 11,
-      'avatar': 'img/avatar-max.jpg',
+      'avatarUrl': 'img/avatar-max.jpg',
       'name': 'Max',
       'isPro': true,
     },
@@ -17,7 +17,7 @@ export const reviews: Reviews = [
     'id': 2,
     'user': {
       'id': 22,
-      'avatar': 'img/avatar-max.jpg',
+      'avatarUrl': 'img/avatar-max.jpg',
       'name': 'Bob',
       'isPro': false,
     },
@@ -29,7 +29,7 @@ export const reviews: Reviews = [
     'id': 3,
     'user': {
       'id': 33,
-      'avatar': 'img/avatar-angelina.jpg',
+      'avatarUrl': 'img/avatar-angelina.jpg',
       'name': 'Angelina',
       'isPro': false,
     },

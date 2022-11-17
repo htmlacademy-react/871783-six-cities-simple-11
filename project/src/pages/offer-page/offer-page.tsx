@@ -16,6 +16,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
   const params = useParams();
   const offer = props.offers.find((offerItem) => offerItem.id.toString() === params.id);
+  // const offers = useAppSelector((state) => state.offers);
   const points: Point[] = props.offers.map((offerItem) => ({
     id: offerItem.id, ...offerItem.city.location
   }));
@@ -80,9 +81,9 @@ function OfferPage(props: OfferPageProps): JSX.Element {
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
                   {
-                    offer.insideItems?.map((insideItem) => (
-                      <li className="property__inside-item" key={ insideItem }>
-                        { insideItem }
+                    offer.goods?.map((goodItem) => (
+                      <li className="property__inside-item" key={ goodItem }>
+                        { goodItem }
                       </li>
                     ))
                   }
@@ -92,7 +93,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={ offer.host.avatar } width="74" height="74" alt="Host avatar" />
+                    <img className="property__avatar user__avatar" src={ offer.host.avatarUrl } width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
                     { offer.host.name }

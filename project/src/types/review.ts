@@ -2,7 +2,7 @@ export type Review = {
   id: number;
   user: {
     id: number;
-    avatar: string;
+    avatarUrl: string;
     name: string;
     isPro: boolean;
   };

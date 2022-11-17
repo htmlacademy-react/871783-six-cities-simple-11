@@ -4,7 +4,7 @@ import {AppRoute} from '../../router';
 import { useAppSelector} from '../../hooks';
 
 type CityListProps = {
-  selectedCity: string;
+  // selectedCity: string;
   onCityClick: (value: string) => void;
 }
 

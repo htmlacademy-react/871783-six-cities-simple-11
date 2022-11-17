@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import React, { useState, MouseEvent } from 'react';
+import React, { useState } from 'react';
 import { SortingType } from '../../const';
 import { sortCardsAction } from '../../store/action';
 

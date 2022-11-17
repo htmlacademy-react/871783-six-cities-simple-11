@@ -31,7 +31,7 @@ function MainPage(props: MainPageProps): JSX.Element {
   // }, [selectedCity]);
 
   useEffect(() => {
-        const filteredOffers = offers.filter((offer) => offer.city.name === selectedCity);
+    const filteredOffers = offers.filter((offer) => offer.city.name === selectedCity);
     // const sortedOffers: Offer[] = filteredOffers.length > 0 ? cardsSorted(filteredOffers, sortingType) : [];
     dispatch(getOffersAction(cardsSorted(filteredOffers, sortingType)));
   }, [selectedCity, sortingType]);

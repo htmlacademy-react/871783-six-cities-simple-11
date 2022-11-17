@@ -1,6 +1,5 @@
 import { SortingType } from './const';
 import { Offer } from './types/offer';
-import { offers } from './mocks/offers';
 
 // export const cardsSorted = (sortingType: string, a: Offer, b: Offer): number => {
 //   switch (sortingType) {
@@ -16,8 +15,6 @@ import { offers } from './mocks/offers';
 //
 //   return -1;
 // };
-
-// console.log(cardsSorted);
 
 export const cardsSorted = ( offers: Offer[], sortingType: SortingType): Offer[] => {
   switch (sortingType) {

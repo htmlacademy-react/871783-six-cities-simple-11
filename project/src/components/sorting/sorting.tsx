@@ -12,8 +12,8 @@ function Sorting(): JSX.Element {
     setOptionsState(!openedOptions);
   };
 
-  const handleSortingOption = (sortingType: SortingType) => {
-    dispatch(sortCardsAction(sortingType));
+  const handleSortingOption = (param: SortingType) => {
+    dispatch(sortCardsAction(param));
     setOptionsState(false);
   };
 

@@ -67,7 +67,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
                   { offer.title }
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  { offer.badrooms } Bedrooms
+                  { offer.bedrooms } Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
                   Max { offer.maxAdults } adults

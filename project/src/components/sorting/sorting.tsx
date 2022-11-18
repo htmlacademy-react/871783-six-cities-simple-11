@@ -1,6 +1,6 @@
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import React, { useState } from 'react';
-import { SortingType } from '../../const';
+import { sortingType, SortingType } from '../../types/sort';
 import { sortCardsAction } from '../../store/action';
 
 function Sorting(): JSX.Element {
@@ -9,7 +9,7 @@ function Sorting(): JSX.Element {
   const selectedOption = useAppSelector((state) => state.sortingType);
 
   const handleSortingClick = () => {
-    setOptionsState(!setOptionsState);
+    setOptionsState(!openedOptions);
   };
 
   const handleSortingOption = (sortingType: SortingType) => {
@@ -32,14 +32,14 @@ function Sorting(): JSX.Element {
       </span>
       <ul
         className={`places__options places__options--custom ${openedOptions ? 'places__options--opened' : ''}`}
-        onClick={() => handleSortingOption}
       >
         {
-          Object.values(SortingType).map((option) => (
+          Object.values(sortingType).map((option) => (
             <li
               className={`places__option ${option === selectedOption ? 'places__option--active' : ''}`}
               tabIndex={0}
               key={ option }
+              onClick={() => handleSortingOption(option)}
             >
               { option }
             </li>

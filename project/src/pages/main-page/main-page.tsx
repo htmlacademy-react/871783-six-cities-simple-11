@@ -5,36 +5,34 @@ import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {changeCityAction, getOffersAction } from '../../store/action';
 import { offers } from '../../mocks/offers';
-import { cardsSorted } from '../../utils';
-// import { SortingType } from '../../const';
+import { SortingType } from '../../types/sort';
 
 type MainPageProps = {
   city: City;
 }
 
+export const cardsSorted: Record<SortingType, (a: Offer, b: Offer) => number> = {
+  'Top rated first': (a: Offer, b: Offer) => b.rating - a.rating,
+  'Price: high to low': (a: Offer, b: Offer) => b.price - a.price,
+  'Price: low to high': (a: Offer, b: Offer) => a.price - b.price,
+  Popular: (a: Offer, b: Offer) => 0,
+};
+
 function MainPage(props: MainPageProps): JSX.Element {
   const dispatch = useAppDispatch();
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
   const selectedCity = useAppSelector((state) => state.city);
-  const cityOffers = useAppSelector((state) => state.offers);
   const sortingType = useAppSelector((state) => state.sortingType);
+  const compareFn = cardsSorted[sortingType];
+  const cityOffers = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === selectedCity).sort(compareFn));
   const points: Point[] = cityOffers.map((offer) => ({
     id: offer.id, ...offer.city.location
   }));
   const handleCitySelect = (city: string) => dispatch(changeCityAction(city));
 
-  // const filteredOffers = offers.filter((offer) => offer.city.name === selectedCity)
-  //
-  // useEffect(() => {
-  //   //Добавить сортировку
-  //   dispatch(getOffersAction(filteredOffers));
-  // }, [selectedCity]);
-
   useEffect(() => {
-    const filteredOffers = offers.filter((offer) => offer.city.name === selectedCity);
-    // const sortedOffers: Offer[] = filteredOffers.length > 0 ? cardsSorted(filteredOffers, sortingType) : [];
-    dispatch(getOffersAction(cardsSorted(filteredOffers, sortingType)));
-  }, [selectedCity, sortingType]);
+    dispatch(getOffersAction(offers));
+  }, []);
 
   return (
     <div className="page page--gray page--main">
@@ -58,7 +56,6 @@ function MainPage(props: MainPageProps): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{ cityOffers.length } places to stay in { selectedCity }</b>
               <Sorting />
-              {/*<Sorting offers={ sortedOffers } />*/}
               <div className="cities__places-list places__list tabs__content">
                 <CardList
                   offers={ cityOffers }

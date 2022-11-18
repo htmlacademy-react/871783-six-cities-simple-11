@@ -4,12 +4,12 @@ import {AppRoute} from '../../router';
 import { useAppSelector} from '../../hooks';
 
 type CityListProps = {
-  // selectedCity: string;
+  selectedCity: string;
   onCityClick: (value: string) => void;
 }
 
-function CityList(props: CityListProps): JSX.Element {
-  const selectedCity = useAppSelector((state) => state.city);
+function CityList({ selectedCity, onCityClick }: CityListProps): JSX.Element {
+  selectedCity = useAppSelector((state) => state.city);
 
   return (
     <ul className="locations__list tabs__list">
@@ -17,7 +17,7 @@ function CityList(props: CityListProps): JSX.Element {
         <li className="locations__item" key={ city }>
           <Link
             className={`locations__item-link ${city === selectedCity ? 'tabs__item tabs__item--active' : ''}`}
-            onClick={() => props.onCityClick(city)}
+            onClick={() => onCityClick(city)}
             to={AppRoute.Main}
           >
             <span>{ city }</span>

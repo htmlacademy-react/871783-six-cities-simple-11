@@ -42,6 +42,10 @@ function Map({ city, points, selectedPoint }: MapProps): JSX.Element {
               : defaultCustomIcon
           )
           .addTo(map);
+
+        return () => {
+          map.removeLayer(marker);
+        };
       });
     }
   }, [map, points, selectedPoint]);

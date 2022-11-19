@@ -11,7 +11,7 @@ export type City = {
 
 export type Host = {
   id: number;
-  avatar: string;
+  avatarUrl: string;
   name: string;
   isPro: boolean;
 }
@@ -26,11 +26,12 @@ export type Offer = {
   title: string;
   description: string;
   type: string;
-  badrooms: number;
+  bedrooms: number;
   maxAdults: number;
-  insideItems?: string[] | null;
+  goods?: string[] | null;
   city: City;
   host: Host;
+  location: Location;
 }
 
 export type Point = Omit<Location, 'zoom'> & {

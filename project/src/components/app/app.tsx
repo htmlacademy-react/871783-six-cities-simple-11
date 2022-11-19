@@ -22,7 +22,6 @@ function App(props: AppScreenProps): JSX.Element {
             path={AppRoute.Main}
             element={
               <MainPage
-                offers={ props.offers }
                 city={ props.city }
               />
             }

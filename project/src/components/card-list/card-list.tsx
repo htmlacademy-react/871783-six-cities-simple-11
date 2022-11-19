@@ -16,7 +16,7 @@ function CardList(props: CardListProps): JSX.Element {
           offer={ offer }
           offerType={ props.offerType }
           key={ offer.id }
-          setActiveCard={props.setActiveCard}
+          setActiveCard={ props.setActiveCard }
         />
       ))}
     </>

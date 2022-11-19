@@ -8,3 +8,5 @@ export { Rating } from './rating';
 export { UserReview } from './user-review';
 export { ReviewList } from './review-list';
 export { Map } from './map';
+export { Sorting } from './sorting';
+export { CityList } from './city-list';

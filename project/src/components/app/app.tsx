@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { LoginPage, MainPage, OfferPage, NotFoundPage } from '../../pages';
 import { PrivateRoute } from '../../components';
@@ -6,6 +6,8 @@ import { AppRoute } from '../../router';
 import { AuthorizationStatus } from '../../const';
 import { City, Offers } from '../../types/offer';
 import { Reviews} from '../../types/review';
+import HistoryRouter from '../history-router/history-router';
+import browserHistory from '../../browser-history';
 
 type AppScreenProps = {
   city: City;
@@ -16,7 +18,7 @@ type AppScreenProps = {
 function App(props: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={ browserHistory}>
         <Routes>
           <Route
             path={AppRoute.Main}
@@ -51,7 +53,7 @@ function App(props: AppScreenProps): JSX.Element {
             element={<NotFoundPage />}
           />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }

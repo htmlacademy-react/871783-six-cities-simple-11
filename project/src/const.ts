@@ -28,3 +28,5 @@ export const cities = [
   'Hamburg',
   'Dusseldorf'
 ] as const;
+
+export const TIMEOUT_SHOW_ERROR = 2000;

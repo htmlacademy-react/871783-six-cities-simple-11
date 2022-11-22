@@ -10,3 +10,6 @@ export { ReviewList } from './review-list';
 export { Map } from './map';
 export { Sorting } from './sorting';
 export { CityList } from './city-list';
+export { Spinner } from './spinner';
+export { HistoryRouter } from './history-router';
+export { ErrorMessage } from './error-message';

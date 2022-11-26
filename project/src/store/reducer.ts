@@ -4,14 +4,16 @@ import {
   loadOffersAction,
   sortCardsAction,
   requireAuthorization,
-  loadOffersNearbyAction,
-  loadCommentsAction,
-  setErrorAction
+  setOffersNearbyAction,
+  getUserData,
+  setCommentsAction,
+  setLoadingStatus
 } from './action';
 import { Offer } from '../types/offer';
 import { SortingType } from '../types/sort';
 import { AuthorizationStatus } from '../const';
-import {Review} from '../types/review';
+import { Review } from '../types/review';
+import { UserData } from '../types/user-data';
 
 type State = {
   city: string;
@@ -20,8 +22,10 @@ type State = {
   reviews: Review[];
   sortingType: SortingType;
   authorizationStatus: AuthorizationStatus;
-  isDataLoading: boolean;
-  error: string | null;
+  userData: UserData;
+  isLoading: boolean;
+  isFormLoading: boolean;
+  offersNearby: Offer[];
 };
 
 const initialState: State = {
@@ -31,8 +35,10 @@ const initialState: State = {
   reviews: [],
   sortingType: 'Popular',
   authorizationStatus: AuthorizationStatus.Unknown,
-  isDataLoading: false,
-  error: null,
+  userData: {} as UserData,
+  isLoading: false,
+  isFormLoading: false,
+  offersNearby: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -43,19 +49,22 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(loadOffersAction, (state, action) => {
       state.offers = action.payload;
     })
-    .addCase(loadOffersNearbyAction, (state, action) => {
-
+    .addCase(setLoadingStatus, (state, action) => {
+      state.isLoading = action.payload;
+    })
+    .addCase(setOffersNearbyAction, (state, action) => {
+      state.offersNearby = action.payload;
     })
     .addCase(sortCardsAction, (state, action) => {
       state.sortingType = action.payload;
     })
-    .addCase(loadCommentsAction, (state, action) => {
+    .addCase(setCommentsAction, (state, action) => {
       state.reviews = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
-    .addCase(setErrorAction, (state, action) => {
-      state.error = action.payload;
+    .addCase(getUserData, (state, action) => {
+      state.userData = action.payload;
     });
 });

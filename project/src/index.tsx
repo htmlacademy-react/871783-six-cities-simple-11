@@ -6,7 +6,6 @@ import { store } from './store';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { checkAuthAction, fetchOffersAction } from './store/api-actions';
-import ErrorMessage from "./components/error-message/error-message";
 
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
@@ -19,7 +18,6 @@ root.render(
   <React.StrictMode>
     <Provider store={ store }>
       <ToastContainer />
-      <ErrorMessage />
       <App />
     </Provider>
   </React.StrictMode>,

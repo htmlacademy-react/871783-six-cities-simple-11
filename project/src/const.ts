@@ -28,3 +28,12 @@ export const cities = [
   'Hamburg',
   'Dusseldorf'
 ] as const;
+
+export const randomCities = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf'
+];

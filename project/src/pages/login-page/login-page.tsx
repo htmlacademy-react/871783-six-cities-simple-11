@@ -6,7 +6,8 @@ import { loginAction } from '../../store/api-actions';
 import { AppRoute } from '../../router';
 import { useAppDispatch } from '../../hooks';
 import { AuthData } from '../../types/auth-data';
-import { getRandomCity } from "../../utils";
+import { getRandomCity } from '../../utils';
+import { changeCityAction } from '../../store/action';
 
 function LoginPage(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -25,6 +26,8 @@ function LoginPage(): JSX.Element {
       });
     }
   };
+
+  const handleLoginLocationClick = () => dispatch(changeCityAction(getRandomCity));
 
   return (
     <div className="page page--gray page--login">
@@ -75,8 +78,8 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link tabs__item" to={AppRoute.Main}>
-                <span>{ getRandomCity }</span>
+              <Link className="locations__item-link tabs__item" to={ AppRoute.Main }>
+                <span onClick={ handleLoginLocationClick }>{ getRandomCity }</span>
               </Link>
             </div>
           </section>

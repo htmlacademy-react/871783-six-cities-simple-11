@@ -1,15 +1,11 @@
 import {Header, CardList, Map, CityList, Sorting } from '../../components';
-import { City, Offer, Point } from '../../types/offer';
+import { Offer, Point } from '../../types/offer';
 import { Helmet} from 'react-helmet-async';
 import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {changeCityAction, getOffersAction } from '../../store/action';
-import { offers } from '../../mocks/offers';
+import { changeCityAction } from '../../store/action';
 import { SortingType } from '../../types/sort';
-
-type MainPageProps = {
-  city: City;
-}
+import { fetchOffersAction } from '../../store/api-actions';
 
 export const cardsSorted: Record<SortingType, (a: Offer, b: Offer) => number> = {
   'Top rated first': (a: Offer, b: Offer) => b.rating - a.rating,
@@ -18,7 +14,7 @@ export const cardsSorted: Record<SortingType, (a: Offer, b: Offer) => number> = 
   Popular: (a: Offer, b: Offer) => 0,
 };
 
-function MainPage(props: MainPageProps): JSX.Element {
+function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
   const selectedCity = useAppSelector((state) => state.city);
@@ -26,12 +22,12 @@ function MainPage(props: MainPageProps): JSX.Element {
   const compareFn = cardsSorted[sortingType];
   const cityOffers = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === selectedCity).sort(compareFn));
   const points: Point[] = cityOffers.map((offer) => ({
-    id: offer.id, ...offer.city.location
+    id: offer.id, ...offer.location
   }));
   const handleCitySelect = (city: string) => dispatch(changeCityAction(city));
-
+  const currentLocation = cityOffers.length ? cityOffers[0].city.location : null;
   useEffect(() => {
-    dispatch(getOffersAction(offers));
+    dispatch(fetchOffersAction());
   }, []);
 
   return (
@@ -65,11 +61,14 @@ function MainPage(props: MainPageProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <Map
-                points={ points }
-                city={ props.city }
-                selectedPoint={ activeCard?.id }
-              />
+              {
+                currentLocation &&
+                <Map
+                  points={ points }
+                  city={ currentLocation }
+                  selectedPoint={ activeCard?.id }
+                />
+              }
             </div>
           </div>
         </div>

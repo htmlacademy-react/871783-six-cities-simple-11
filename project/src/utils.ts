@@ -1,7 +1,7 @@
-import { randomCities } from "./const";
+import { randomCities } from './const';
 
 function randomElem(theArray: string[]): string {
-  let randomIndex = Math.floor(Math.random()*theArray.length);
+  const randomIndex = Math.floor(Math.random() * theArray.length);
   return theArray[randomIndex];
 }
 

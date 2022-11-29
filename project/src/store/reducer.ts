@@ -7,7 +7,7 @@ import {
   setOffersNearbyAction,
   getUserData,
   setCommentsAction,
-  setLoadingStatus
+  setLoadingStatus, loadCurrentOfferAction
 } from './action';
 import { Offer } from '../types/offer';
 import { SortingType } from '../types/sort';
@@ -24,7 +24,6 @@ type State = {
   authorizationStatus: AuthorizationStatus;
   userData: UserData;
   isLoading: boolean;
-  isFormLoading: boolean;
   offersNearby: Offer[];
 };
 
@@ -37,7 +36,6 @@ const initialState: State = {
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: {} as UserData,
   isLoading: false,
-  isFormLoading: false,
   offersNearby: [],
 };
 
@@ -48,6 +46,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffersAction, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(loadCurrentOfferAction, (state, action) => {
+      state.currentOffer = action.payload;
     })
     .addCase(setLoadingStatus, (state, action) => {
       state.isLoading = action.payload;

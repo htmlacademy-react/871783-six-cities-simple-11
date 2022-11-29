@@ -1,21 +1,25 @@
 import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { LoginPage, MainPage, OfferPage, NotFoundPage } from '../../pages';
-import { PrivateRoute } from '../../components';
+import { Spinner } from '../../components';
 import { AppRoute } from '../../router';
 import { AuthorizationStatus } from '../../const';
-import { City, Offers } from '../../types/offer';
-import { Reviews} from '../../types/review';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
+import { useAppSelector } from '../../hooks';
+import { useAuth } from '../../hooks/use-auth/useAuth';
 
-type AppScreenProps = {
-  city: City;
-  offers: Offers;
-  reviews: Reviews;
-}
+function App(): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isLoading = useAppSelector((state) => state.isLoading);
+  const authorization = useAuth();
 
-function App(props: AppScreenProps): JSX.Element {
+  if (authorizationStatus === AuthorizationStatus.Unknown || isLoading) {
+    return (
+      <Spinner />
+    );
+  }
+
   return (
     <HelmetProvider>
       <HistoryRouter history={ browserHistory}>
@@ -23,33 +27,23 @@ function App(props: AppScreenProps): JSX.Element {
           <Route
             path={AppRoute.Main}
             element={
-              <MainPage
-                city={ props.city }
-              />
+              <MainPage />
             }
           />
           <Route
             path={AppRoute.Login}
             element={
-              <PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
-              >
-                <LoginPage/>
-              </PrivateRoute>
+              authorization === 'AUTH' ? <MainPage /> : <LoginPage/>
             }
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
             element={
-              <OfferPage
-                city={ props.city }
-                offers={ props.offers }
-                reviews={ props.reviews }
-              />
+              <OfferPage />
             }
           />
           <Route
-            path='*'
+            path={ AppRoute.NotFound }
             element={<NotFoundPage />}
           />
         </Routes>

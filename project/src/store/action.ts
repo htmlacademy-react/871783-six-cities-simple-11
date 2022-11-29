@@ -8,11 +8,13 @@ import { UserData } from '../types/user-data';
 
 export const changeCityAction = createAction<string>('changeCity');
 
-export const loadOffersAction = createAction<Offer[]>('getOffers');
+export const loadOffersAction = createAction<Offer[]>('offers/getOffers');
+
+export const loadCurrentOfferAction = createAction<Offer>('offer/getOffer');
 
 export const setLoadingStatus = createAction<boolean>('data/setLoadingStatus');
 
-export const setOffersNearbyAction = createAction<Offer[]>('setNearBy');
+export const setOffersNearbyAction = createAction<Offer[]>('setNearby');
 
 export const sortCardsAction = createAction<SortingType>('sortCards');
 

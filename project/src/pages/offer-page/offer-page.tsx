@@ -1,26 +1,38 @@
-import { Header, CommentForm, CardList, ReviewList, Rating, Map } from '../../components';
+import {Header, CommentForm, CardList, ReviewList, Rating, Map, Spinner} from '../../components';
 import { useParams } from 'react-router-dom';
-import { City, Offer, Point } from '../../types/offer';
-import { Reviews} from '../../types/review';
-import { reviews } from '../../mocks/reviews';
+import { Offer, Point } from '../../types/offer';
 import { NotFoundPage } from '../not-found-page';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { fetchCommentsAction, fetchOfferAction, fetchOffersNearbyAction } from '../../store/api-actions';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { AuthorizationStatus } from '../../const';
 
-type OfferPageProps = {
-  city: City;
-  offers: Offer[];
-  reviews: Reviews;
-}
-
-function OfferPage(props: OfferPageProps): JSX.Element {
+function OfferPage(): JSX.Element {
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
-  const params = useParams();
-  const offer = props.offers.find((offerItem) => offerItem.id.toString() === params.id);
-  // const offers = useAppSelector((state) => state.offers);
-  const points: Point[] = props.offers.map((offerItem) => ({
-    id: offerItem.id, ...offerItem.city.location
+  const offer = useAppSelector((state) => state.currentOffer);
+  const isLoading = useAppSelector((state) => state.isLoading);
+  const nearbyOffers = useAppSelector((state) => state.offersNearby).slice(0,4);
+  const reviews = useAppSelector((state) => state.reviews);
+  const dispatch = useAppDispatch();
+  const currentOfferLocation = {id: offer?.id, ...offer?.location};
+  let points: Point[] = nearbyOffers.map((nearbyOffer) => ({
+    id: nearbyOffer.id, ...nearbyOffer.location
   }));
+  if (Object.keys(currentOfferLocation).length) {
+    points.push(currentOfferLocation as Point);
+  }
+  const { id } = useParams();
 
+  useEffect(() => {
+    dispatch(fetchOfferAction(Number(id)));
+    dispatch(fetchCommentsAction(Number(id)));
+    dispatch(fetchOffersNearbyAction(Number(id)));
+  }, [dispatch, id]);
+
+  if (authStatus === AuthorizationStatus.Unknown || isLoading) {
+    return <Spinner />;
+  }
   if (!offer) {
     return (<NotFoundPage />);
   }
@@ -112,18 +124,23 @@ function OfferPage(props: OfferPageProps): JSX.Element {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{ props.reviews.length }</span></h2>
-                <ReviewList reviews={reviews} />
-                <CommentForm />
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{ reviews.length }</span></h2>
+                <ReviewList reviews={ reviews } />
+                {
+                  authStatus === AuthorizationStatus.Auth
+                  ? <CommentForm />
+                  : ''
+                }
               </section>
             </div>
           </div>
           <section className="property__map map">
+            { nearbyOffers &&
             <Map
+              city={ offer.location }
               points={ points }
-              city={ props.city }
               selectedPoint={ activeCard?.id }
-            />
+            />}
           </section>
         </section>
         <div className="container">
@@ -131,7 +148,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               <CardList
-                offers={ props.offers }
+                offers={ nearbyOffers }
                 setActiveCard={ setActiveCard }
                 offerType={ 'nearby' }
               />

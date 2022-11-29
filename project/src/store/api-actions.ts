@@ -8,7 +8,6 @@ import {
   redirectToRoute,
   requireAuthorization,
   setCommentsAction,
-  setLoadingStatus,
   loadCurrentOfferAction, getUserData,
 } from './action';
 import { saveToken, dropToken } from '../services/token';
@@ -25,11 +24,9 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
 }>(
   'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
-    // dispatch(setLoadingStatus(true));
     const {data} = await api.get<Offer[]>(APIRoute.Offers);
 
     dispatch(loadOffersAction(data));
-    // dispatch(setLoadingStatus(false));
   },
 );
 

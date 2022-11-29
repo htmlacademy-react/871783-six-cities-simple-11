@@ -16,7 +16,7 @@ function OfferPage(): JSX.Element {
   const reviews = useAppSelector((state) => state.reviews);
   const dispatch = useAppDispatch();
   const currentOfferLocation = {id: offer?.id, ...offer?.location};
-  let points: Point[] = nearbyOffers.map((nearbyOffer) => ({
+  const points: Point[] = nearbyOffers.map((nearbyOffer) => ({
     id: nearbyOffer.id, ...nearbyOffer.location
   }));
   if (Object.keys(currentOfferLocation).length) {
@@ -128,8 +128,8 @@ function OfferPage(): JSX.Element {
                 <ReviewList reviews={ reviews } />
                 {
                   authStatus === AuthorizationStatus.Auth
-                  ? <CommentForm />
-                  : ''
+                    ? <CommentForm />
+                    : ''
                 }
               </section>
             </div>

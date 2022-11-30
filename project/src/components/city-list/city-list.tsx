@@ -16,9 +16,9 @@ function CityList({ selectedCity, onCityClick }: CityListProps): JSX.Element {
       { cities.map((city) => (
         <li className="locations__item" key={ city }>
           <Link
-            className={`locations__item-link ${city === selectedCity ? 'tabs__item tabs__item--active' : ''}`}
+            className={`locations__item-link ${ city === selectedCity ? 'tabs__item tabs__item--active' : ''}` }
             onClick={() => onCityClick(city)}
-            to={AppRoute.Main}
+            to={ AppRoute.Main }
           >
             <span>{ city }</span>
           </Link>

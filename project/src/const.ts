@@ -4,6 +4,13 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum APIRoute {
+  Offers = '/hotels',
+  Reviews = '/comments',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export const ratings: number[] = [5, 4, 3, 2, 1];
 
 export const MARKER = {
@@ -21,3 +28,12 @@ export const cities = [
   'Hamburg',
   'Dusseldorf'
 ] as const;
+
+export const randomCities = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf'
+];

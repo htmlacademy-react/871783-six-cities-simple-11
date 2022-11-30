@@ -1,12 +1,12 @@
 import { useRef, useEffect } from 'react';
 import { Icon, Marker } from 'leaflet';
 import { useMap } from '../../hooks';
-import { City, Point } from '../../types/offer';
+import { Location, Point } from '../../types/offer';
 import { MARKER } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  city: City;
+  city: Location;
   points: Point[];
   selectedPoint?: number;
 }
@@ -29,6 +29,9 @@ function Map({ city, points, selectedPoint }: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
+      map.setView([city.latitude, city.longitude],
+        city.zoom);
+
       points.forEach((point, id) => {
         const marker = new Marker({
           lat: point.latitude,
@@ -42,17 +45,13 @@ function Map({ city, points, selectedPoint }: MapProps): JSX.Element {
               : defaultCustomIcon
           )
           .addTo(map);
-
-        return () => {
-          map.removeLayer(marker);
-        };
       });
     }
   }, [map, points, selectedPoint]);
 
   return (
     <section
-      ref={mapRef}
+      ref={ mapRef }
       className="cities__map map"
       style={{ height: '100%' }}
     >

@@ -1,21 +1,49 @@
-import React, { useState, ChangeEvent, FormEvent, Fragment } from 'react';
+import React, { useState, ChangeEvent, FormEvent, Fragment, useEffect } from 'react';
 import { ratings } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { fetchSendCommentAction } from '../../store/api-actions';
+import { useParams } from 'react-router-dom';
+import { setLoadingStatus } from '../../store/action';
 
 function CommentForm(): JSX.Element {
   const [formData, setFormData] = useState({
     review: '',
     rating: 0,
   });
+  const dispatch = useAppDispatch();
+  const params = useParams();
+  const id = Number(params.id);
+
+  const resetForm = () => {
+    setFormData({
+      rating: 0, review: ''
+    });
+  };
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    const { review, rating } = formData;
+    setLoadingStatus(true);
+    dispatch(fetchSendCommentAction({id, comment: review, rating}));
+    setLoadingStatus(false);
+    resetForm();
   };
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement >) => {
     const { name, value } = evt.target;
-
-    setFormData({ ...formData, [name]: value });
+    if (name === 'rating') {
+      setFormData({...formData, [name]: +value});
+    } else {setFormData({...formData, [name]: value});}
   };
+
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+
+  const formDataValidate = () => formData.rating === 0 || formData.review.length < 50 || formData.review.length > 300;
+
+  useEffect(() => {
+    // reset();
+    setIsSubmitDisabled(formDataValidate());
+  }, [formData]);
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={ handleFormSubmit }>
@@ -47,7 +75,7 @@ function CommentForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
+          disabled={ isSubmitDisabled }
         >
           Submit
         </button>

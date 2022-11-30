@@ -3,7 +3,6 @@ import {
   changeCityAction,
   loadOffersAction,
   sortCardsAction,
-  requireAuthorization,
   setOffersNearbyAction,
   getUserData,
   setCommentsAction,
@@ -11,7 +10,6 @@ import {
 } from './action';
 import { Offer } from '../types/offer';
 import { SortingType } from '../types/sort';
-import { AuthorizationStatus } from '../const';
 import { Review } from '../types/review';
 import { UserData } from '../types/user-data';
 
@@ -21,7 +19,6 @@ type State = {
   currentOffer: Offer | null;
   reviews: Review[];
   sortingType: SortingType;
-  authorizationStatus: AuthorizationStatus;
   userData: UserData;
   isLoading: boolean;
   offersNearby: Offer[];
@@ -33,7 +30,6 @@ const initialState: State = {
   currentOffer: null,
   reviews: [],
   sortingType: 'Popular',
-  authorizationStatus: AuthorizationStatus.Unknown,
   userData: {} as UserData,
   isLoading: false,
   offersNearby: [],
@@ -61,9 +57,6 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCommentsAction, (state, action) => {
       state.reviews = action.payload;
-    })
-    .addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
     })
     .addCase(getUserData, (state, action) => {
       state.userData = action.payload;

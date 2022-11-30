@@ -37,3 +37,10 @@ export const randomCities = [
   'Hamburg',
   'Dusseldorf'
 ];
+
+export enum NameSpace {
+  App = 'APP',
+  Offer = 'OFFER',
+  Review = 'REVIEW',
+  User = 'USER',
+}

@@ -1,4 +1,4 @@
-import {Header, CommentForm, CardList, ReviewList, Rating, Map, Spinner} from '../../components';
+import { Header, CommentForm, CardList, ReviewList, Rating, Map, Spinner, Gallery } from '../../components';
 import { useParams } from 'react-router-dom';
 import { Offer, Point } from '../../types/offer';
 import { NotFoundPage } from '../not-found-page';
@@ -42,17 +42,7 @@ function OfferPage(): JSX.Element {
       <Header />
       <main className="page__main page__main--property">
         <section className="property">
-          <div className="property__gallery-container container">
-            <div className="property__gallery">
-              {
-                offer.images.map((image) => (
-                  <div className="property__image-wrapper" key={ image }>
-                    <img className="property__image" src={ image } alt="Photo studio" />
-                  </div>
-                ))
-              }
-            </div>
-          </div>
+          <Gallery images={offer.images} />
           <div className="property__container container">
             <div className="property__wrapper">
               {

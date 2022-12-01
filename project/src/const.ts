@@ -40,7 +40,8 @@ export const randomCities = [
 
 export enum NameSpace {
   App = 'APP',
-  Offer = 'OFFER',
-  Review = 'REVIEW',
+  // Offer = 'OFFER',
+  // Review = 'REVIEW',
   User = 'USER',
+  Data = 'DATA',
 }

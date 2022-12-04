@@ -26,63 +26,32 @@ const currentCustomIcon = new Icon({
 function Map({ city, points, selectedPoint }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  // const offerInfo = useAppSelector(getOfferInfo);
 
   useEffect(() => {
     if (map) {
-        map.eachLayer((layer) => {
-          if (layer instanceof Marker) {
-            layer.remove();
-          }
+      map.eachLayer((layer) => {
+        if (layer instanceof Marker) {
+          layer.remove();
+        }
+      });
+
+      const markersLayer = new LayerGroup();
+      points.forEach((point, id) => {
+        const marker = new Marker({
+          lat: point.latitude,
+          lng: point.longitude
         });
 
-        const markersLayer = new LayerGroup();
-        points.forEach((point, id) => {
-          const marker = new Marker({
-            lat: point.latitude,
-            lng: point.longitude
-          });
-
-          marker
-            .setIcon(
-              // id === selectedPoint
-              selectedPoint !== undefined && id === selectedPoint
-                ? currentCustomIcon
-                : defaultCustomIcon
-            )
-            .addTo(markersLayer);
-        });
+        marker
+          .setIcon(
+            point.id === selectedPoint
+              ? currentCustomIcon
+              : defaultCustomIcon
+          )
+          .addTo(markersLayer);
+      });
 
       map.addLayer(markersLayer);
-      // points.forEach((point, id) => {
-      //   const marker = new Marker({
-      //     lat: point.latitude,
-      //     lng: point.longitude
-      //   });
-      //
-      //   marker
-      //     .setIcon(
-      //       id === selectedPoint
-      //         ? currentCustomIcon
-      //         : defaultCustomIcon
-      //     )
-      //     .addTo(map);
-      // });
-      // if (offerInfo && id) {
-      //   const markerRoomInfo = new Marker({
-      //     lat: offerInfo.location.latitude,
-      //     lng: offerInfo.location.longitude
-      //   });
-      //
-      //   markerRoomInfo
-      //     .setIcon(
-      //       id && String(offerInfo.id) === id
-      //         ? currentCustomIcon
-      //         : defaultCustomIcon
-      //     )
-      //     .addTo(map);
-      // }
-
     }
   }, [map, points, selectedPoint]);
 

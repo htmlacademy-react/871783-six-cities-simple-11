@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import {AppRoute} from '../../router';
+import { AppRoute } from '../../router';
 import { Rating } from '../../components';
 
 type CardProps = {
@@ -54,4 +55,4 @@ function Card(props: CardProps): JSX.Element {
   );
 }
 
-export default Card;
+export default memo(Card);

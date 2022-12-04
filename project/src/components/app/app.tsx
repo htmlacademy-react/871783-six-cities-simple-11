@@ -1,23 +1,30 @@
 import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { LoginPage, MainPage, OfferPage, NotFoundPage } from '../../pages';
+import { LoginPage, MainPage, OfferPage, NotFoundPage, ErrorPage } from '../../pages';
 import { Spinner } from '../../components';
 import { AppRoute } from '../../router';
-import { AuthorizationStatus } from '../../const';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 import { useAppSelector } from '../../hooks';
 import { useAuth } from '../../hooks/use-auth/useAuth';
+import { getAuthCheckedStatus, getIsLoading } from '../../store/user-process/selectors';
+import { getErrorStatus } from '../../store/offers-data/selectors';
 
 function App(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+  const isLoading = useAppSelector(getIsLoading);
   const authorization = useAuth();
+  const hasError = useAppSelector(getErrorStatus);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || isLoading) {
+  if (!isAuthChecked || isLoading) {
     return (
       <Spinner />
     );
+  }
+
+  if (hasError) {
+    return (
+      <ErrorPage />);
   }
 
   return (

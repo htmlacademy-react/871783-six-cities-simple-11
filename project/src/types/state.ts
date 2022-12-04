@@ -1,23 +1,30 @@
 import { store } from '../store';
 import { AuthorizationStatus } from '../const';
-import {Review} from "./review";
-import {SortingType} from "./sort";
-import {Offer} from "./offer";
+import { Review } from './review';
+import { SortingType } from './sort';
+import { Offer } from './offer';
+import { UserData } from './user-data';
 
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 
-export type AppProcess = {
+export type UserProcess = {
+  authorizationStatus: AuthorizationStatus;
+  userData: UserData;
+  isLoading: boolean;
+}
+
+export type OffersProcess = {
   city: string;
+  sortingType: SortingType;
+}
+
+export type OffersData = {
   offers: Offer[];
   currentOffer: Offer | null;
   reviews: Review[];
-  sortingType: SortingType;
-  isLoading: boolean;
   offersNearby: Offer[];
-}
-
-export type UserProcess = {
-  authorizationStatus: AuthorizationStatus;
+  isLoading: boolean;
+  hasError: boolean;
 }

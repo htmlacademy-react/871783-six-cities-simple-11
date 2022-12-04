@@ -6,22 +6,28 @@ import { useEffect, useState } from 'react';
 import { fetchCommentsAction, fetchOfferAction, fetchOffersNearbyAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../const';
+import { getComments, getCurrentOffer, getOffersNearby } from '../../store/offers-data/selectors';
+import { getAuthorizationStatus, getIsLoading } from '../../store/user-process/selectors';
 
 function OfferPage(): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthorizationStatus);
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
-  const offer = useAppSelector((state) => state.currentOffer);
-  const isLoading = useAppSelector((state) => state.isLoading);
-  const nearbyOffers = useAppSelector((state) => state.offersNearby).slice(0,4);
-  const reviews = useAppSelector((state) => state.reviews);
+  // console.log(activeCard);
+  // console.log(setActiveCard);
+  const offer = useAppSelector(getCurrentOffer);
+  const isLoading = useAppSelector(getIsLoading);
+  const nearbyOffers = useAppSelector(getOffersNearby).slice(0,4);
+  const reviews = useAppSelector(getComments);
   const dispatch = useAppDispatch();
   const currentOfferLocation = {id: offer?.id, ...offer?.location};
   const points: Point[] = nearbyOffers.map((nearbyOffer) => ({
     id: nearbyOffer.id, ...nearbyOffer.location
   }));
+
   if (Object.keys(currentOfferLocation).length) {
     points.push(currentOfferLocation as Point);
   }
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -129,7 +135,7 @@ function OfferPage(): JSX.Element {
             <Map
               city={ offer.location }
               points={ points }
-              selectedPoint={ activeCard?.id }
+              selectedPoint={ Number(id) }
             />}
           </section>
         </section>

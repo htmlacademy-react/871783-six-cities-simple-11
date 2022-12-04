@@ -4,3 +4,4 @@ export { OfferPage } from './offer-page';
 export { NotFoundPage } from './not-found-page';
 export { MainEmptyPage } from './main-empty-page';
 export { NotLoggedPage } from './not-logged-page';
+export { ErrorPage } from './error-page';

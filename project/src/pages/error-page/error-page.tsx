@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../router';
-import './not-found-page.css';
 import { Header } from '../../components';
 import { Helmet } from 'react-helmet-async';
 
-function NotFoundPage(): JSX.Element {
+function ErrorPage(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
-        <title>6 городов. Страница не найдена</title>
+        <title>6 городов. Ошибка</title>
       </Helmet>
 
       <Header />
@@ -18,9 +17,9 @@ function NotFoundPage(): JSX.Element {
           <div className="cities__places-container cities__places-container--empty container">
             <section className="cities__no-places">
               <div className="cities__status-wrapper">
-                <h1 className="status-error__name">404.</h1>
-                <h2 className="status-error__inside-title">Страница не найдена</h2>
-                <Link to={AppRoute.Main} className="status-error__mark">Перейти на главную</Link>
+                <h1 className="status-error__name">Не удалось загрузить предложения</h1>
+                <h2 className="status-error__inside-title">Попробуйте еще раз</h2>
+                <Link to={ AppRoute.Main } className="status-error__mark">Перейти на главную</Link>
               </div>
             </section>
             <div className="cities__right-section"/>
@@ -31,4 +30,4 @@ function NotFoundPage(): JSX.Element {
   );
 }
 
-export default NotFoundPage;
+export default ErrorPage;

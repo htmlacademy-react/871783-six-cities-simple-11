@@ -1,7 +1,8 @@
-import {cities} from '../../const';
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../router';
-import { useAppSelector} from '../../hooks';
+import { cities } from '../../const';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../router';
+import { useAppSelector } from '../../hooks';
+import { getCity } from '../../store/offers-process/selectors';
 
 type CityListProps = {
   selectedCity: string;
@@ -9,7 +10,7 @@ type CityListProps = {
 }
 
 function CityList({ selectedCity, onCityClick }: CityListProps): JSX.Element {
-  selectedCity = useAppSelector((state) => state.city);
+  selectedCity = useAppSelector(getCity);
 
   return (
     <ul className="locations__list tabs__list">

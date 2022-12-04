@@ -3,31 +3,28 @@ import { Offer, Point } from '../../types/offer';
 import { Helmet} from 'react-helmet-async';
 import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeCityAction } from '../../store/action';
-import { SortingType } from '../../types/sort';
 import { fetchOffersAction } from '../../store/api-actions';
 import { MainEmptyPage } from '../main-empty-page';
-
-
-export const cardsSorted: Record<SortingType, (a: Offer, b: Offer) => number> = {
-  'Top rated first': (a: Offer, b: Offer) => b.rating - a.rating,
-  'Price: high to low': (a: Offer, b: Offer) => b.price - a.price,
-  'Price: low to high': (a: Offer, b: Offer) => a.price - b.price,
-  Popular: (a: Offer, b: Offer) => 0,
-};
+import { getCity, getSort } from '../../store/offers-process/selectors';
+import { changeCity } from '../../store/offers-process/offers-process';
+import { getOffers } from '../../store/offers-data/selectors';
+import { cardsSorted } from '../../utils';
 
 function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
-  const selectedCity = useAppSelector((state) => state.city);
-  const sortingType = useAppSelector((state) => state.sortingType);
+  const selectedCity = useAppSelector(getCity);
+  const offers = useAppSelector(getOffers);
+  const sortingType = useAppSelector(getSort);
   const compareFn = cardsSorted[sortingType];
-  const cityOffers = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === selectedCity).sort(compareFn));
-  const points: Point[] = cityOffers.map((offer) => ({
+  const cityOffers = offers.filter((offer) => offer.city.name === selectedCity);
+  const sortedOffers = cityOffers.sort(compareFn);
+  const points: Point[] = sortedOffers.map((offer) => ({
     id: offer.id, ...offer.location
   }));
-  const handleCitySelect = (city: string) => dispatch(changeCityAction(city));
-  const currentLocation = cityOffers.length ? cityOffers[0].city.location : null;
+  const handleCitySelect = (city: string) => dispatch(changeCity(city));
+  const currentLocation = sortedOffers.length ? sortedOffers[0].city.location : null;
+
   useEffect(() => {
     dispatch(fetchOffersAction());
   }, [dispatch]);
@@ -56,11 +53,11 @@ function MainPage(): JSX.Element {
               points.length ?
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{ cityOffers.length } places to stay in { selectedCity }</b>
+                  <b className="places__found">{ sortedOffers.length } places to stay in { selectedCity }</b>
                   <Sorting />
                   <div className="cities__places-list places__list tabs__content">
                     <CardList
-                      offers={ cityOffers }
+                      offers={ sortedOffers }
                       offerType={ 'cities' }
                       setActiveCard={ setActiveCard }
                     />

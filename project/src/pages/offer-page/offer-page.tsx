@@ -1,8 +1,8 @@
 import { Header, CommentForm, CardList, ReviewList, Rating, Map, Spinner, Gallery } from '../../components';
 import { useParams } from 'react-router-dom';
-import { Offer, Point } from '../../types/offer';
+import { Point } from '../../types/offer';
 import { NotFoundPage } from '../not-found-page';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { fetchCommentsAction, fetchOfferAction, fetchOffersNearbyAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../const';

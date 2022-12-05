@@ -7,7 +7,7 @@ import { Rating } from '../../components';
 type CardProps = {
   offer: Offer;
   offerType: 'nearby' | 'cities';
-  setActiveCard: (offer: Offer | null) => void;
+  setActiveCard?: (offer: Offer | null) => void;
 }
 
 function Card(props: CardProps): JSX.Element {
@@ -16,8 +16,8 @@ function Card(props: CardProps): JSX.Element {
   return (
     <article
       className={`${ props.offerType === 'cities' ? 'cities' : 'near-places'}__card place-card`}
-      onMouseOver={() => props.setActiveCard(props.offer) }
-      onMouseLeave={() => props.setActiveCard(null)}
+      onMouseOver={() => props.setActiveCard && props.setActiveCard(props.offer) }
+      onMouseLeave={() => props.setActiveCard && props.setActiveCard(null)}
       key={props.offer.id}
     >
       {

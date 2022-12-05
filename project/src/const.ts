@@ -50,3 +50,6 @@ export enum NameSpace {
 
 export const MIN_COMMENT_AMOUNT = 0;
 export const MAX_COMMENT_AMOUNT = 10;
+
+export const MIN_IMAGE_AMOUNT = 0;
+export const MAX_IMAGE_AMOUNT = 6;

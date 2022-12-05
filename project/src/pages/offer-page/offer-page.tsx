@@ -11,7 +11,6 @@ import { getAuthorizationStatus, getIsLoading } from '../../store/user-process/s
 
 function OfferPage(): JSX.Element {
   const authStatus = useAppSelector(getAuthorizationStatus);
-  const [activeCard, setActiveCard] = useState<Offer | null>(null);
   const offer = useAppSelector(getCurrentOffer);
   const isLoading = useAppSelector(getIsLoading);
   const nearbyOffers = useAppSelector(getOffersNearby).slice(0,4);
@@ -143,7 +142,6 @@ function OfferPage(): JSX.Element {
             <div className="near-places__list places__list">
               <CardList
                 offers={ nearbyOffers }
-                setActiveCard={ setActiveCard }
                 offerType={ 'nearby' }
               />
             </div>

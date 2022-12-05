@@ -36,6 +36,7 @@ function Map({ city, points, selectedPoint }: MapProps): JSX.Element {
       });
 
       const markersLayer = new LayerGroup();
+
       points.forEach((point, id) => {
         const marker = new Marker({
           lat: point.latitude,

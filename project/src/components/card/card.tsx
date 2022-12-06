@@ -1,12 +1,13 @@
+import { memo } from 'react';
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import {AppRoute} from '../../router';
+import { AppRoute } from '../../router';
 import { Rating } from '../../components';
 
 type CardProps = {
   offer: Offer;
   offerType: 'nearby' | 'cities';
-  setActiveCard: (offer: Offer | null) => void;
+  setActiveCard?: (offer: Offer | null) => void;
 }
 
 function Card(props: CardProps): JSX.Element {
@@ -15,8 +16,8 @@ function Card(props: CardProps): JSX.Element {
   return (
     <article
       className={`${ props.offerType === 'cities' ? 'cities' : 'near-places'}__card place-card`}
-      onMouseOver={() => props.setActiveCard(props.offer) }
-      onMouseLeave={() => props.setActiveCard(null)}
+      onMouseOver={() => props.setActiveCard && props.setActiveCard(props.offer) }
+      onMouseLeave={() => props.setActiveCard && props.setActiveCard(null)}
       key={props.offer.id}
     >
       {
@@ -54,4 +55,4 @@ function Card(props: CardProps): JSX.Element {
   );
 }
 
-export default Card;
+export default memo(Card);

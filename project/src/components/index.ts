@@ -12,3 +12,4 @@ export { Sorting } from './sorting';
 export { CityList } from './city-list';
 export { Spinner } from './spinner';
 export { HistoryRouter } from './history-router';
+export { Gallery } from './gallery';

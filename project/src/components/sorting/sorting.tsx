@@ -1,19 +1,20 @@
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { sortingType, SortingType } from '../../types/sort';
-import { sortCardsAction } from '../../store/action';
+import { getSort } from '../../store/offers-process/selectors';
+import { sortCards } from '../../store/offers-process/offers-process';
 
 function Sorting(): JSX.Element {
   const dispatch = useAppDispatch();
   const [openedOptions, setOptionsState] = useState<boolean>(false);
-  const selectedOption = useAppSelector((state) => state.sortingType);
+  const selectedOption = useAppSelector(getSort);
 
   const handleSortingClick = () => {
     setOptionsState(!openedOptions);
   };
 
   const handleSortingOption = (param: SortingType) => {
-    dispatch(sortCardsAction(param));
+    dispatch(sortCards(param));
     setOptionsState(false);
   };
 
@@ -23,7 +24,7 @@ function Sorting(): JSX.Element {
       <span
         className="places__sorting-type"
         tabIndex={0}
-        onClick={handleSortingClick}
+        onClick={ handleSortingClick }
       >
         { selectedOption }
         <svg className="places__sorting-arrow" width="7" height="4">
@@ -50,4 +51,4 @@ function Sorting(): JSX.Element {
   );
 }
 
-export default Sorting;
+export default memo(Sorting);

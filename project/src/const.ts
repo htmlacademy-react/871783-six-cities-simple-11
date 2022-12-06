@@ -13,6 +13,8 @@ export enum APIRoute {
 
 export const ratings: number[] = [5, 4, 3, 2, 1];
 
+export const DEFAULT_SORT = 'Popular';
+
 export const MARKER = {
   URL_MARKER_DEFAULT: 'img/pin.svg',
   URL_MARKER_CURRENT: 'img/pin-active.svg',
@@ -29,6 +31,8 @@ export const cities = [
   'Dusseldorf'
 ] as const;
 
+export const DEFAULT_CITY = cities[0];
+
 export const randomCities = [
   'Paris',
   'Cologne',
@@ -37,3 +41,15 @@ export const randomCities = [
   'Hamburg',
   'Dusseldorf'
 ];
+
+export enum NameSpace {
+  Offers = 'OFFERS',
+  User = 'USER',
+  Data = 'DATA',
+}
+
+export const MIN_COMMENT_AMOUNT = 0;
+export const MAX_COMMENT_AMOUNT = 10;
+
+export const MIN_IMAGE_AMOUNT = 0;
+export const MAX_IMAGE_AMOUNT = 6;

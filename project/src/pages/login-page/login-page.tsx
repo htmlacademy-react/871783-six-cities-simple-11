@@ -7,7 +7,7 @@ import { AppRoute } from '../../router';
 import { useAppDispatch } from '../../hooks';
 import { AuthData } from '../../types/auth-data';
 import { getRandomCity } from '../../utils';
-import { changeCityAction } from '../../store/action';
+import { changeCity } from '../../store/offers-process/offers-process';
 
 function LoginPage(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -27,7 +27,7 @@ function LoginPage(): JSX.Element {
     }
   };
 
-  const handleLoginLocationClick = () => dispatch(changeCityAction(getRandomCity));
+  const handleLoginLocationClick = () => dispatch(changeCity(getRandomCity));
 
   return (
     <div className="page page--gray page--login">

@@ -1,27 +1,30 @@
-import {Header, CommentForm, CardList, ReviewList, Rating, Map, Spinner} from '../../components';
+import { Header, CommentForm, CardList, ReviewList, Rating, Map, Spinner, Gallery } from '../../components';
 import { useParams } from 'react-router-dom';
-import { Offer, Point } from '../../types/offer';
+import { Point } from '../../types/offer';
 import { NotFoundPage } from '../not-found-page';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { fetchCommentsAction, fetchOfferAction, fetchOffersNearbyAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../const';
+import { getComments, getCurrentOffer, getOffersNearby } from '../../store/offers-data/selectors';
+import { getAuthorizationStatus, getIsLoading } from '../../store/user-process/selectors';
 
 function OfferPage(): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
-  const [activeCard, setActiveCard] = useState<Offer | null>(null);
-  const offer = useAppSelector((state) => state.currentOffer);
-  const isLoading = useAppSelector((state) => state.isLoading);
-  const nearbyOffers = useAppSelector((state) => state.offersNearby).slice(0,4);
-  const reviews = useAppSelector((state) => state.reviews);
+  const authStatus = useAppSelector(getAuthorizationStatus);
+  const offer = useAppSelector(getCurrentOffer);
+  const isLoading = useAppSelector(getIsLoading);
+  const nearbyOffers = useAppSelector(getOffersNearby).slice(0,4);
+  const reviews = useAppSelector(getComments);
   const dispatch = useAppDispatch();
   const currentOfferLocation = {id: offer?.id, ...offer?.location};
   const points: Point[] = nearbyOffers.map((nearbyOffer) => ({
     id: nearbyOffer.id, ...nearbyOffer.location
   }));
+
   if (Object.keys(currentOfferLocation).length) {
     points.push(currentOfferLocation as Point);
   }
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -42,17 +45,7 @@ function OfferPage(): JSX.Element {
       <Header />
       <main className="page__main page__main--property">
         <section className="property">
-          <div className="property__gallery-container container">
-            <div className="property__gallery">
-              {
-                offer.images.map((image) => (
-                  <div className="property__image-wrapper" key={ image }>
-                    <img className="property__image" src={ image } alt="Photo studio" />
-                  </div>
-                ))
-              }
-            </div>
-          </div>
+          <Gallery images={offer.images} />
           <div className="property__container container">
             <div className="property__wrapper">
               {
@@ -139,7 +132,7 @@ function OfferPage(): JSX.Element {
             <Map
               city={ offer.location }
               points={ points }
-              selectedPoint={ activeCard?.id }
+              selectedPoint={ Number(id) }
             />}
           </section>
         </section>
@@ -149,7 +142,6 @@ function OfferPage(): JSX.Element {
             <div className="near-places__list places__list">
               <CardList
                 offers={ nearbyOffers }
-                setActiveCard={ setActiveCard }
                 offerType={ 'nearby' }
               />
             </div>

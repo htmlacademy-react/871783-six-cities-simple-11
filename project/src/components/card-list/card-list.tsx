@@ -4,7 +4,7 @@ import { Offer } from '../../types/offer';
 type CardListProps = {
   offers: Offer[];
   offerType: 'nearby' | 'cities';
-  setActiveCard: (offer: Offer | null) => void;
+  setActiveCard?: (offer: Offer | null) => void;
 }
 
 function CardList(props: CardListProps): JSX.Element {

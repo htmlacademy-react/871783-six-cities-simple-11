@@ -4,10 +4,11 @@ import { AuthorizationStatus } from '../../const';
 import { logoutAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AppRoute } from '../../router';
+import { getAuthorizationStatus, getUserData } from '../../store/user-process/selectors';
 
 function Header(): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
-  const { avatarUrl, email } = useAppSelector((state) => state.userData);
+  const authStatus = useAppSelector(getAuthorizationStatus);
+  const { avatarUrl, email } = useAppSelector(getUserData);
   const dispatch = useAppDispatch();
   const handleLogout = () => {
     dispatch(logoutAction());

@@ -1,6 +1,6 @@
 import { UserReview } from '../../components';
 import { Reviews} from '../../types/review';
-import { MAX_COMMENT_AMOUNT, MIN_COMMENT_AMOUNT } from '../../const';
+import { COMMENT_MAX_AMOUNT, COMMENT_MIN_AMOUNT } from '../../const';
 
 type ReviewListProps = {
   reviews: Reviews;
@@ -12,7 +12,7 @@ function ReviewList({reviews}: ReviewListProps): JSX.Element {
   if (reviews.length) {
     sortedReviews = [...reviews]
       .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
-      .slice(MIN_COMMENT_AMOUNT, MAX_COMMENT_AMOUNT);
+      .slice(COMMENT_MIN_AMOUNT, COMMENT_MAX_AMOUNT);
   } else {
     sortedReviews = reviews;
   }

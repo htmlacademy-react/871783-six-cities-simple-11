@@ -48,8 +48,11 @@ export enum NameSpace {
   Data = 'DATA',
 }
 
-export const MIN_COMMENT_AMOUNT = 0;
-export const MAX_COMMENT_AMOUNT = 10;
+export const COMMENT_MIN_AMOUNT = 0;
+export const COMMENT_MAX_AMOUNT = 10;
+
+export const COMMENT_MIN_LENGTH = 50;
+export const COMMENT_MAX_LENGTH = 300;
 
 export const MIN_IMAGE_AMOUNT = 0;
 export const MAX_IMAGE_AMOUNT = 6;

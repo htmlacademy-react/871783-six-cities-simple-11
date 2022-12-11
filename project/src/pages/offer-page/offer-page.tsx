@@ -75,7 +75,7 @@ function OfferPage(): JSX.Element {
                   { offer.bedrooms } Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max { offer.maxAdults } adults
+                  Max { offer.maxAdults === 1 ? `${ offer.maxAdults } adult` : `${ offer.maxAdults } adults`}
                 </li>
               </ul>
               <div className="property__price">

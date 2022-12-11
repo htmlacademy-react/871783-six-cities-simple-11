@@ -5,7 +5,7 @@ import { NotFoundPage } from '../not-found-page';
 import { useEffect } from 'react';
 import { fetchCommentsAction, fetchOfferAction, fetchOffersNearbyAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, Comment } from '../../const';
 import { getComments, getCurrentOffer, getOffersNearby } from '../../store/offers-data/selectors';
 import { getAuthorizationStatus, getIsLoading } from '../../store/user-process/selectors';
 
@@ -117,7 +117,12 @@ function OfferPage(): JSX.Element {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{ reviews.length }</span></h2>
+                <h2 className="reviews__title">Reviews &middot;
+                  <span className="reviews__amount">{
+                    reviews.length <= Comment.MaxAmount ? reviews.length : `${Comment.MaxAmount} из ${reviews.length}`
+                  }
+                  </span>
+                </h2>
                 <ReviewList reviews={ reviews } />
                 {
                   authStatus === AuthorizationStatus.Auth

@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent, Fragment, useEffect } from 'react';
-import {COMMENT_MAX_LENGTH, COMMENT_MIN_LENGTH, ratings} from '../../const';
+import { Comment, ratings } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { fetchSendCommentAction } from '../../store/api-actions';
 import { useParams } from 'react-router-dom';
@@ -41,7 +41,7 @@ function CommentForm(): JSX.Element {
 
   const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false);
 
-  const formDataValidate = () => formData.rating === 0 || formData.review.length < COMMENT_MIN_LENGTH || formData.review.length > COMMENT_MAX_LENGTH || isCommentSending;
+  const formDataValidate = () => formData.rating === 0 || formData.review.length < Comment.MinLength || formData.review.length > Comment.MaxLength || isCommentSending;
 
   useEffect(() => {
     setIsSubmitDisabled(formDataValidate());

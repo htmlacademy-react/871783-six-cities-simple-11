@@ -13,14 +13,14 @@ type MapProps = {
 
 const defaultCustomIcon = new Icon({
   iconUrl: MARKER.URL_MARKER_DEFAULT,
-  iconSize: [MARKER.MARKER_WIDTH, MARKER.MARKER_HEIGHT],
-  iconAnchor: [+`${MARKER.MARKER_WIDTH / 2}`, MARKER.MARKER_HEIGHT]
+  iconSize: [MARKER.WIDTH, MARKER.HEIGHT],
+  iconAnchor: [+`${MARKER.WIDTH / 2}`, MARKER.HEIGHT]
 });
 
 const currentCustomIcon = new Icon({
   iconUrl: MARKER.URL_MARKER_CURRENT,
-  iconSize: [MARKER.MARKER_WIDTH, MARKER.MARKER_HEIGHT],
-  iconAnchor: [+`${MARKER.MARKER_WIDTH / 2}`, MARKER.MARKER_HEIGHT]
+  iconSize: [MARKER.WIDTH, MARKER.HEIGHT],
+  iconAnchor: [+`${MARKER.WIDTH / 2}`, MARKER.HEIGHT]
 });
 
 function Map({ city, points, selectedPoint }: MapProps): JSX.Element {
